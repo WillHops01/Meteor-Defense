@@ -7,6 +7,9 @@ export default class Meteor{
     };
     this.direction = this.setDirection();
     //set speed as well
+
+    this.updatePosition = this.updatePosition.bind(this);
+    this.draw = this.draw.bind(this);
   }
 
   setDirection(){
@@ -15,6 +18,7 @@ export default class Meteor{
 
   updatePosition(){
 
+    this.draw();
   }
 
 
