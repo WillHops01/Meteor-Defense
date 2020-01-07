@@ -1,0 +1,25 @@
+{
+  "name": "meteordefense",
+  "version": "1.0.0",
+  "description": "Meteor Defense Game",
+  "main": "index.js",
+  "scripts": {
+    "test": "run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WillHops01/Meteor-Defense.git"
+  },
+  "keywords": [
+    "Javascript",
+    "canvas",
+    "defense",
+    "game"
+  ],
+  "author": "Will Hopcraft",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/WillHops01/Meteor-Defense/issues"
+  },
+  "homepage": "https://github.com/WillHops01/Meteor-Defense#readme"
+}
