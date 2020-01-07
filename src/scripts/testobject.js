@@ -12,6 +12,14 @@ class TestObject{
   draw(ctx){
     ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
+
+  update(deltaTime)
+  {
+    
+    if(!deltaTime) return;
+    console.log(deltaTime);
+    this.position.x += 5 / deltaTime;
+  }
 }
 
 export default TestObject;
