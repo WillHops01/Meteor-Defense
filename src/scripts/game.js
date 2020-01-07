@@ -4,13 +4,18 @@ export default class Game{
   constructor(context, width, height){
     this.ctx = context;
     this.screenHeight = height;
-    this.screenWidth = width;
+    this.screenWidth = width;    
+    this.meteorArray = [];
+    this.elapsedTime = 0;
+
     this.runGame = this.runGame.bind(this)();
   }
 
   runGame(){
-    console.log("hello");
-    console.log(this.screenHeight);
+    //while not lost
+    
+    //update meteorarray
+    //redraw meteors
   }
 
   gameLoop(){
