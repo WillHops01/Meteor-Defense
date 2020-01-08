@@ -8,11 +8,15 @@ export default class Game{
     this.screenWidth = width;    
     this.meteorArray = [];
     this.lastTime = 0;
-    this.elapsedFrameTime = 0;
+    this.timer = 0; //used to generate new meteors at intervals
+    this.level = 1; //controls difficulty and pace of game
+    this.background = document.getElementById("background");
+
     this.gameLoop = this.gameLoop.bind(this);
     this.runGame = this.runGame.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.background = document.getElementById("background");
+    this.buildNewMeteors = this.buildNewMeteors.bind(this);
+    
   }
 
   handleClick(e){
@@ -31,10 +35,7 @@ export default class Game{
     this.gameLoop(0);
   }
 
-  gameLoop(timestamp){
-    this.elapsedFrameTime = timestamp - this.lastTime;
-    this.lastTime = timestamp;
-    const levelMultiplier = 1.0;
+  gameLoop(timestamp){    
     //while not lost
 
       //update meteorarray
@@ -43,14 +44,43 @@ export default class Game{
       //repeat
 
     //
+    let elapsedFrameTime = timestamp - this.lastTime;
+    this.lastTime = timestamp;
+    this.timer+=elapsedFrameTime/1000;
+    // console.log(this.timer);
 
-    this.ctx.drawImage(background, 0,0);
+    const levelMultiplier = 1.0;  
+    
+    
+
+
+    if (this.timer >= 3.0){
+      this.buildNewMeteors();
+      this.timer = 0;
+    }   
+
+    this.ctx.drawImage(background, 0, 0);
     this.meteorArray.forEach(meteor =>{
-      meteor.updatePosition(levelMultiplier, this.elapsedFrameTime/100);       
+      //check pos of meteor against missiles, explosions, and ground
+      if (meteor.position.y >= this.screenHeight){
+        this.meteorArray.splice(this.meteorArray.indexOf(meteor),1);
+      } else {
+        meteor.updatePosition(levelMultiplier, elapsedFrameTime / 100);  
+      }           
     });  
+    console.log(this.meteorArray);
     requestAnimationFrame(this.gameLoop);    
   }
+
+  buildNewMeteors() {
+    for(let i =0; i < this.level * 2; i++){
+      let posX = Math.floor(Math.random() * Math.floor(this.screenWidth));
+      this.meteorArray.push(new Meteor(posX, this.ctx));
+    }
+  }
 }
+
+
 
 // function Game(ctx){
   

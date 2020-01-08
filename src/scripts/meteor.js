@@ -3,7 +3,7 @@ export default class Meteor{
     this.ctx = ctx;
     this.position = {
       x: posX,
-      y: 30
+      y: -10
     };
     this.speed = 7 * this.setSpeed();
     this.direction = this.setDirection();
