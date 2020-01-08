@@ -1,5 +1,7 @@
 import TestObject from "./testobject";
 import Meteor from "./meteor";
+import Missile from "./missile";
+import Base from "./base";
 
 export default class Game{
   constructor(context, width, height){
@@ -15,8 +17,8 @@ export default class Game{
     this.gameLoop = this.gameLoop.bind(this);
     this.runGame = this.runGame.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.buildNewMeteors = this.buildNewMeteors.bind(this);
-    
+    this.buildNewMeteors = this.buildNewMeteors.bind(this);    
+    this.base = new Base(this.ctx, this.screenHeight);
   }
 
   handleClick(e){
@@ -50,9 +52,6 @@ export default class Game{
     // console.log(this.timer);
 
     const levelMultiplier = 1.0;  
-    
-    
-
 
     if (this.timer >= 3.0){
       this.buildNewMeteors();
@@ -60,6 +59,8 @@ export default class Game{
     }   
 
     this.ctx.drawImage(background, 0, 0);
+    this.base.draw();
+
     this.meteorArray.forEach(meteor =>{
       //check pos of meteor against missiles, explosions, and ground
       if (meteor.position.y >= this.screenHeight){
@@ -68,7 +69,7 @@ export default class Game{
         meteor.updatePosition(levelMultiplier, elapsedFrameTime / 100);  
       }           
     });  
-    console.log(this.meteorArray);
+    //console.log(this.meteorArray);
     requestAnimationFrame(this.gameLoop);    
   }
 
