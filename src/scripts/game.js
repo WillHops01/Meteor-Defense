@@ -2,6 +2,7 @@ import TestObject from "./testobject";
 import Meteor from "./meteor";
 import Missile from "./missile";
 import Base from "./base";
+import Explosion from "./explosion";
 
 export default class Game{
   constructor(context, width, height){
@@ -12,6 +13,7 @@ export default class Game{
     this.meteorArray = [];
     this.baseArray = [];
     this.missileArray = [];
+    this.explosionArray = [];
 
     this.missileCount = 10;
 
@@ -26,9 +28,7 @@ export default class Game{
     this.buildNewMeteors = this.buildNewMeteors.bind(this);  
   }
 
-  handleClick(e){
-    //console.log(`clicked ${e.offsetX}`);  
-    //console.log(`clicked ${e.offsetY}`);
+  handleClick(e){ 
     
     //check for missile count
     //find closest base to click
@@ -99,14 +99,15 @@ export default class Game{
     this.ctx.drawImage(background, 0, 0);
 
     this.meteorArray.forEach(meteor =>{
-      //check pos of meteor against missiles, explosions, and ground      
-      this.missileArray.forEach(missile => {
-        let distance = missile.calculateDistance(meteor.position);
-        let radiiDifference = missile.radius/2 + meteor.radius/2;
-        if (distance - radiiDifference <= 2){
-          console.log("hit");
-        }
-      });
+      //check pos of meteor against explosions, and ground 
+
+      // this.missileArray.forEach(missile => {
+      //   let distance = missile.calculateDistance(meteor.position);
+      //   let radiiDifference = missile.radius/2 + meteor.radius/2;
+      //   if (distance - radiiDifference <= 3){
+      //     console.log("hit");
+      //   }
+      // });
       
       if (meteor.position.y >= this.screenHeight){
         this.meteorArray.splice(this.meteorArray.indexOf(meteor),1);
@@ -116,8 +117,20 @@ export default class Game{
     });  
 
     this.missileArray.forEach(missile => {
-      missile.updatePosition(elapsedFrameTime / 100);
+      //check for explosion
+      if (missile.checkExplosion()){        
+        this.explosionArray.push(new Explosion(this.ctx, missile.position));
+        this.missileArray.splice(this.missileArray.indexOf(missile),1);
+      } else {
+        missile.updatePosition(elapsedFrameTime / 100);
+      }      
     });
+
+    this.explosionArray.forEach(explosion => {
+      explosion.draw();
+    });
+
+
     this.baseArray.forEach(base => {
       base.draw();
     });
