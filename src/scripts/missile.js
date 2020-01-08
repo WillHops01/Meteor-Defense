@@ -18,21 +18,21 @@ export default class Missile{
     this.missileImage = document.getElementById("yellow-missile");    
     this.draw = this.draw.bind(this);
     this.updatePosition = this.updatePosition.bind(this);
-    this.calculateDistance = this.calculateDistance.bind(this);
+    //this.calculateDistance = this.calculateDistance.bind(this);
     this.checkExplosion = this.checkExplosion.bind(this);
   }
 
-  checkExplosion(){
-    let distance = this.calculateDistance();    
+  checkExplosion(distance){
+    //let distance = this.calculateDistance();    
     if (distance <= this.explosionRadius) return true;
     return false;
   }
 
-  calculateDistance(){
-    let xDist = Math.abs(this.position.x - this.destination.x);
-    let yDist = Math.abs(this.position.y - this.destination.y);
-    return Math.sqrt((xDist*xDist) + (yDist*yDist));
-  }
+  // calculateDistance(){
+  //   let xDist = Math.abs(this.position.x - this.destination.x);
+  //   let yDist = Math.abs(this.position.y - this.destination.y);
+  //   return Math.sqrt((xDist*xDist) + (yDist*yDist));
+  // }
 
   updatePosition(dt){
     this.position.x += (this.course.x / this.speed) * dt;    

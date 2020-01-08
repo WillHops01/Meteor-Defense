@@ -113,13 +113,21 @@ export default class Game{
         if (distance <= explosion.explosionRadius + meteor.radius) {
           this.explosionArray.push(new Explosion(this.ctx, meteor.position));
           this.meteorArray.splice(this.meteorArray.indexOf(meteor), 1);
+          return;
         }
       });        
+
+      this.baseArray.forEach(base => {
+        let distance = calculateDistance(meteor.position, base.position);
+        if (distance <= base.radius + meteor.radius){
+          console.log("base destroyed");
+        }
+      });
     });  
 
     this.missileArray.forEach(missile => {
       //check for explosion
-      if (missile.checkExplosion()){        
+      if (missile.checkExplosion(calculateDistance(missile.position, missile.destination))){        
         this.explosionArray.push(new Explosion(this.ctx, missile.position));
         this.missileArray.splice(this.missileArray.indexOf(missile),1);
       } else {

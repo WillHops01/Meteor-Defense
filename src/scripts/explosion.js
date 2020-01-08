@@ -1,9 +1,14 @@
 export default class Explosion{
   constructor(ctx, position){
-    this.position = {
-      x: position.x-50,
-      y: position.y-50
+    this.drawPosition = {
+      x: position.x-60,
+      y: position.y-60
     }; //50 is magic number center
+    this.position={
+      x:position.x,
+      y:position.y
+    };
+
     this.ctx = ctx;
     this.timer = 0;
     this.explosionImageArray = [document.getElementById("explosion-1"),
@@ -12,7 +17,7 @@ export default class Explosion{
       document.getElementById("explosion-4")];
     this.imageToDraw = this.explosionImageArray[0];
     this.stage = 0;
-    this.explosionRadius = 75; 
+    this.explosionRadius = 63; 
 
     this.draw = this.draw.bind(this);
     this.updateExplosion = this.updateExplosion.bind(this);
@@ -34,9 +39,9 @@ export default class Explosion{
   draw(){
     this.ctx.drawImage(
       this.explosionImageArray[this.stage],
-      this.position.x,
-      this.position.y,
-      100, 100
+      this.drawPosition.x,
+      this.drawPosition.y,
+      120, 120
     );
   }
 }
