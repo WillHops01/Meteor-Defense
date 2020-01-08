@@ -37,11 +37,11 @@ export default class Game{
     if (this.missileCount > 0){
 
       let closestBase = this.baseArray[0];
-      let difference = Math.abs(e.offsetX - closestBase.xPos);
+      let difference = Math.abs(e.offsetX - closestBase.position.x);
       for (let i = 1; i < this.baseArray.length; i++) {
-        if (Math.abs(e.offsetX - this.baseArray[i].xPos) < difference) {
+        if (Math.abs(e.offsetX - this.baseArray[i].position.x) < difference) {
           closestBase = this.baseArray[i];
-          difference = Math.abs(e.offsetX - closestBase.xPos);
+          difference = Math.abs(e.offsetX - closestBase.position.x);
         }
       }
       let destination = {
@@ -49,7 +49,7 @@ export default class Game{
         y: e.offsetY
       };
       
-      this.missileArray.push(new Missile(destination, closestBase.position));
+      this.missileArray.push(new Missile(destination, (closestBase.position), this.ctx));
     }     
   }
 
@@ -64,13 +64,14 @@ export default class Game{
       this.meteorArray.push(new Meteor(posX, this.ctx));
     }
     //setup bases
-    let baseXoffset = {
+    let basePosition = {
       x: 150,
-      y: 100
+      y: this.screenHeight - 100
     };
-    for (let i =0; i < startingBases; i++){
-      this.baseArray.push(new Base(this.ctx, this.screenHeight,baseXoffset));
-      baseXoffset += this.screenWidth/3;
+    
+    for (let i =0; i < startingBases; i++){      
+      this.baseArray.push(new Base(this.ctx, basePosition));      
+      basePosition.x += this.screenWidth/3;
     }
     this.gameLoop(0);
   }
@@ -97,8 +98,6 @@ export default class Game{
 
     this.ctx.drawImage(background, 0, 0);
 
-    
-
     this.meteorArray.forEach(meteor =>{
       //check pos of meteor against missiles, explosions, and ground      
       this.missileArray.forEach(missile => {
@@ -107,7 +106,6 @@ export default class Game{
         if (distance - radiiDifference <= 2){
           console.log("hit");
         }
-
       });
       
       if (meteor.position.y >= this.screenHeight){
@@ -117,10 +115,9 @@ export default class Game{
       }           
     });  
 
-    // this.missileArray.forEach(missile => {
-    //   missile.draw();
-    // });
-
+    this.missileArray.forEach(missile => {
+      missile.updatePosition(elapsedFrameTime / 100);
+    });
     this.baseArray.forEach(base => {
       base.draw();
     });
