@@ -7,7 +7,8 @@ export default class Game{
     this.screenHeight = height;
     this.screenWidth = width;    
     this.meteorArray = [];
-    this.totalElapsedTime = 0;
+    this.lastTime = 0;
+    this.elapsedFrameTime = 0;
     this.gameLoop = this.gameLoop.bind(this);
     this.runGame = this.runGame.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -15,7 +16,8 @@ export default class Game{
   }
 
   handleClick(e){
-    console.log(`clicked ${e.offsetX}`);    
+    //console.log(`clicked ${e.offsetX}`);  
+    //console.log(`clicked ${e.offsetY}`);      
   }
 
   runGame(){
@@ -30,6 +32,9 @@ export default class Game{
   }
 
   gameLoop(timestamp){
+    this.elapsedFrameTime = timestamp - this.lastTime;
+    this.lastTime = timestamp;
+    const levelMultiplier = 1.0;
     //while not lost
 
       //update meteorarray
@@ -41,14 +46,9 @@ export default class Game{
 
     this.ctx.drawImage(background, 0,0);
     this.meteorArray.forEach(meteor =>{
-      meteor.updatePosition();
-      meteor.draw();
-    });
-    //console.log(timestamp);
-    this.elapsedTime+=(timestamp/1000);
-    //console.log(this.elapsedTime);
-    requestAnimationFrame(this.gameLoop);
-    
+      meteor.updatePosition(levelMultiplier, this.elapsedFrameTime/100);       
+    });  
+    requestAnimationFrame(this.gameLoop);    
   }
 }
 
