@@ -3,6 +3,7 @@ import Meteor from "./meteor";
 import Missile from "./missile";
 import Base from "./base";
 import Explosion from "./explosion";
+import { calculateDistance } from "./util";
 
 export default class Game{
   constructor(context, width, height){
@@ -99,21 +100,21 @@ export default class Game{
     this.ctx.drawImage(background, 0, 0);
 
     this.meteorArray.forEach(meteor =>{
-      //check pos of meteor against explosions, and ground 
-
-      // this.missileArray.forEach(missile => {
-      //   let distance = missile.calculateDistance(meteor.position);
-      //   let radiiDifference = missile.radius/2 + meteor.radius/2;
-      //   if (distance - radiiDifference <= 3){
-      //     console.log("hit");
-      //   }
-      // });
-      
+      //first, move the meteor
       if (meteor.position.y >= this.screenHeight){
         this.meteorArray.splice(this.meteorArray.indexOf(meteor),1);
       } else {
         meteor.updatePosition(levelMultiplier, elapsedFrameTime / 100);  
-      }           
+      }   
+      //check pos of meteor against explosions, and ground 
+      this.explosionArray.forEach(explosion => {
+        let distance = calculateDistance(explosion.position, meteor.position);
+        // if meteor in radius, destroy it and create explosion
+        if (distance <= explosion.explosionRadius + meteor.radius) {
+          this.explosionArray.push(new Explosion(this.ctx, meteor.position));
+          this.meteorArray.splice(this.meteorArray.indexOf(meteor), 1);
+        }
+      });        
     });  
 
     this.missileArray.forEach(missile => {
@@ -127,7 +128,11 @@ export default class Game{
     });
 
     this.explosionArray.forEach(explosion => {
-      explosion.draw();
+      if (explosion.stage >= 4){
+        this.explosionArray.splice(this.explosionArray.indexOf(explosion),1);
+      } else {
+        explosion.updateExplosion(elapsedFrameTime);
+      }      
     });
 
 
