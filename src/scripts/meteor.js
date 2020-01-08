@@ -7,6 +7,7 @@ export default class Meteor{
     };
     this.speed = 7 * this.setSpeed();
     this.direction = this.setDirection();
+    this.radius = 10;
     this.updatePosition = this.updatePosition.bind(this);
     this.draw = this.draw.bind(this);
   }
@@ -34,9 +35,8 @@ export default class Meteor{
 
 
   draw(){
-    this.ctx.beginPath();
-    let radius = 10;
-    this.ctx.arc(this.position.x, this.position.y, radius, 0, Math.PI * 2);
+    this.ctx.beginPath();    
+    this.ctx.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
     this.ctx.fill();
   }
 }

@@ -35,18 +35,18 @@
 
 // console.log(a);
 
-class Test{
-  constructor(){
-    this.variable = 1;
-  }
+// class Test{
+//   constructor(){
+//     this.variable = 1;
+//   }
 
-  buildObj(){
-    return new Test();
-  }
-}
+//   buildObj(){
+//     return new Test();
+//   }
+// }
 
-// let test = Test.buildObj();
-// let test = new Test();
-// let otherTest = test.buildObj();
-let otherTest = new Test().buildObj();
-console.log(otherTest.variable);
+// // let test = Test.buildObj();
+// // let test = new Test();
+// // let otherTest = test.buildObj();
+// let otherTest = new Test().buildObj();
+// console.log(otherTest.variable);
