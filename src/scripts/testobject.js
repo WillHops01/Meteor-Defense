@@ -24,13 +24,29 @@
 
 // export default TestObject;
 
-let a = [1,2,3];
-a.forEach(el => {
-  if (el === 2){
-    a.splice(a.indexOf(el),1);
-  } else {
-    console.log(el);
-  }
-});
+// let a = [1,2,3];
+// a.forEach(el => {
+//   if (el === 2){
+//     a.splice(a.indexOf(el),1);
+//   } else {
+//     console.log(el);
+//   }
+// });
 
-console.log(a);
+// console.log(a);
+
+class Test{
+  constructor(){
+    this.variable = 1;
+  }
+
+  buildObj(){
+    return new Test();
+  }
+}
+
+// let test = Test.buildObj();
+// let test = new Test();
+// let otherTest = test.buildObj();
+let otherTest = new Test().buildObj();
+console.log(otherTest.variable);

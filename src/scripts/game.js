@@ -9,6 +9,7 @@ export default class Game{
     this.screenHeight = height;
     this.screenWidth = width;    
     this.meteorArray = [];
+    this.baseArray = [];
     this.lastTime = 0;
     this.timer = 0; //used to generate new meteors at intervals
     this.level = 1; //controls difficulty and pace of game
@@ -18,21 +19,34 @@ export default class Game{
     this.runGame = this.runGame.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.buildNewMeteors = this.buildNewMeteors.bind(this);    
-    this.base = new Base(this.ctx, this.screenHeight);
+    //this.base = new Base(this.ctx, this.screenHeight);
   }
 
   handleClick(e){
-    //console.log(`clicked ${e.offsetX}`);  
-    //console.log(`clicked ${e.offsetY}`);      
+    console.log(`clicked ${e.offsetX}`);  
+    //console.log(`clicked ${e.offsetY}`);
+    
+    //find closest base to click
+    this.baseArray.forEach(base => {
+      console.log(base.xPos);
+    });   
   }
 
   runGame(){
     //initial setup logic
     //then, start gameLoop
     let startingMeteors = 10;
+    let startingBases = 3;
+    //setup meteors ???merge with buildMeteors????
     for (let i = 0; i < startingMeteors; i++){
       let posX = Math.floor(Math.random() * Math.floor(this.screenWidth));
       this.meteorArray.push(new Meteor(posX, this.ctx));
+    }
+    //setup bases
+    let baseXoffset = 150;
+    for (let i =0; i < startingBases; i++){
+      this.baseArray.push(new Base(this.ctx, this.screenHeight,baseXoffset));
+      baseXoffset += this.screenWidth/3;
     }
     this.gameLoop(0);
   }
@@ -59,7 +73,6 @@ export default class Game{
     }   
 
     this.ctx.drawImage(background, 0, 0);
-    this.base.draw();
 
     this.meteorArray.forEach(meteor =>{
       //check pos of meteor against missiles, explosions, and ground
@@ -69,6 +82,10 @@ export default class Game{
         meteor.updatePosition(levelMultiplier, elapsedFrameTime / 100);  
       }           
     });  
+
+    this.baseArray.forEach(base => {
+      base.draw();
+    });
     //console.log(this.meteorArray);
     requestAnimationFrame(this.gameLoop);    
   }
@@ -80,25 +97,3 @@ export default class Game{
     }
   }
 }
-
-
-
-// function Game(ctx){
-  
-
-//   ctx.clearRect(0,0,SCREEN_WIDTH,SCREEN_HEIGHT);
-//   let obj1 = new TestObject(SCREEN_WIDTH, SCREEN_HEIGHT);
-//   obj1.draw(ctx);
-
-//   let lastTime = 0;
-
-//   function gameLoop (timestamp){
-//     let dt = timestamp - lastTime;
-//     lastTime = timestamp;    
-//     ctx.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-//     obj1.update(dt);
-//     obj1.draw(ctx);
-//     requestAnimationFrame(gameLoop);
-//   }
-//   gameLoop();
-// }
