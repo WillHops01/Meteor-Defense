@@ -118,9 +118,14 @@ export default class Game{
       });        
 
       this.baseArray.forEach(base => {
+        base.draw();
+        if (base.destroyed){
+          return;
+        }
+
         let distance = calculateDistance(meteor.position, base.position);
         if (distance <= base.radius + meteor.radius){
-          console.log("base destroyed");
+          base.destroyBase();
         }
       });
     });  
@@ -141,11 +146,6 @@ export default class Game{
       } else {
         explosion.updateExplosion(elapsedFrameTime);
       }      
-    });
-
-
-    this.baseArray.forEach(base => {
-      base.draw();
     });
     
     requestAnimationFrame(this.gameLoop);    
