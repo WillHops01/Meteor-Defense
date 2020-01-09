@@ -14,5 +14,5 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
   let game = new Game(ctx, SCREEN_WIDTH, SCREEN_HEIGHT);
   canvas.addEventListener("click", game.handleClick, false);
-  game.runGame();
+  //game.runGame();
 });

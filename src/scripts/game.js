@@ -21,13 +21,17 @@ export default class Game{
     this.lastTime = 0;
     this.timer = 0; //used to generate new meteors at intervals
     this.level = 1; //controls difficulty and pace of game
-    this.background = document.getElementById("background");
-    this.gameDisplay = new GameDisplay();
+    
+    this.gameDisplay = new GameDisplay(this.ctx);
 
     this.gameLoop = this.gameLoop.bind(this);
     this.runGame = this.runGame.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.buildNewMeteors = this.buildNewMeteors.bind(this);  
+    this.setupLevel = this.setupLevel.bind(this);
+
+    this.background = document.getElementById("background");
+    this.background.addEventListener("load", () => {this.runGame();}, false);
   }
 
   handleClick(e){ 
@@ -55,6 +59,10 @@ export default class Game{
     }     
   }
 
+  setupLevel(){
+
+  }
+
   runGame(){
     //initial setup logic
     //then, start gameLoop
@@ -72,22 +80,17 @@ export default class Game{
     };
     
     for (let i =0; i < startingBases; i++){      
-      this.baseArray.push(new Base(this.ctx, basePosition));      
+      this.baseArray.push(new Base(this.ctx, basePosition)); 
+          
       basePosition.x += this.screenWidth/3;
-    }
-    this.gameLoop(0);
+    }  
+    this.ctx.drawImage(this.background, 0, 0, this.screenWidth, this.screenHeight);
+    this.gameDisplay.nextLevel(this.gameLoop);
   }
 
-  gameLoop(timestamp){    
-    //while not lost
-
-      //update meteorarray
-      //redraw meteors
-      //listen for clicks
-      //repeat
-
-    //
+  gameLoop(timestamp){   
     if (this.gameDisplay.checkContinue()){
+      //game still progressing, player has neither won or lost
       let elapsedFrameTime = timestamp - this.lastTime;
       this.lastTime = timestamp;
       this.timer += elapsedFrameTime / 1000;
@@ -99,7 +102,7 @@ export default class Game{
         this.timer = 0;
       }
 
-      this.ctx.drawImage(background, 0, 0);
+      this.ctx.drawImage(this.background, 0, 0);
 
       this.meteorArray.forEach(meteor => {
         //first, move the meteor
@@ -115,6 +118,7 @@ export default class Game{
           if (distance <= explosion.explosionRadius + meteor.radius) {
             this.explosionArray.push(new Explosion(this.ctx, meteor.position));
             this.meteorArray.splice(this.meteorArray.indexOf(meteor), 1);
+            this.gameDisplay.destroyMeteor();
             return;
           }
         });
@@ -153,7 +157,15 @@ export default class Game{
       });
 
       requestAnimationFrame(this.gameLoop);   
-    }     
+    } else {
+      if (this.gameDisplay.destroyedMeteorCount >= this.gameDisplay.levelGoal){
+        //player progress to next level
+
+      } else {
+        //player lost
+        this.gameDisplay.gameLost();
+      }
+    }    
   }
 
   buildNewMeteors() {
