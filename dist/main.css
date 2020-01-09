@@ -2,14 +2,21 @@
   border-radius: 50%;
   border: 2px solid white; }
 
-#page-container {
-  border: 2px solid green; }
-
 #game-canvas {
   border: 1px solid black; }
 
 img {
   display: none; }
 
+#game-screen-container {
+  display: flex;
+  flex-direction: row; }
+  #game-screen-container #game-info-container {
+    display: flex;
+    flex-direction: column; }
+    #game-screen-container #game-info-container .game-info-area {
+      padding: 15px;
+      border: 2px solid green; }
 
-/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvc3R5bGVzL2luZGV4LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7QUFDQTtBQUNBLDBCQUEwQjs7QUFFMUI7QUFDQSwwQkFBMEI7O0FBRTFCO0FBQ0EsMEJBQTBCOztBQUUxQjtBQUNBLGdCQUFnQiIsImZpbGUiOiJtYWluLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5leHBsb3Npb24ge1xuICBib3JkZXItcmFkaXVzOiA1MCU7XG4gIGJvcmRlcjogMnB4IHNvbGlkIHdoaXRlOyB9XG5cbiNwYWdlLWNvbnRhaW5lciB7XG4gIGJvcmRlcjogMnB4IHNvbGlkIGdyZWVuOyB9XG5cbiNnYW1lLWNhbnZhcyB7XG4gIGJvcmRlcjogMXB4IHNvbGlkIGJsYWNrOyB9XG5cbmltZyB7XG4gIGRpc3BsYXk6IG5vbmU7IH1cbiJdLCJzb3VyY2VSb290IjoiIn0=*/
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvc3R5bGVzL2luZGV4LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7QUFDQTtBQUNBLDBCQUEwQjs7QUFFMUI7QUFDQSwwQkFBMEI7O0FBRTFCO0FBQ0EsZ0JBQWdCOztBQUVoQjtBQUNBO0FBQ0Esc0JBQXNCO0FBQ3RCO0FBQ0E7QUFDQSwyQkFBMkI7QUFDM0I7QUFDQTtBQUNBLDhCQUE4QiIsImZpbGUiOiJtYWluLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5leHBsb3Npb24ge1xuICBib3JkZXItcmFkaXVzOiA1MCU7XG4gIGJvcmRlcjogMnB4IHNvbGlkIHdoaXRlOyB9XG5cbiNnYW1lLWNhbnZhcyB7XG4gIGJvcmRlcjogMXB4IHNvbGlkIGJsYWNrOyB9XG5cbmltZyB7XG4gIGRpc3BsYXk6IG5vbmU7IH1cblxuI2dhbWUtc2NyZWVuLWNvbnRhaW5lciB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtZGlyZWN0aW9uOiByb3c7IH1cbiAgI2dhbWUtc2NyZWVuLWNvbnRhaW5lciAjZ2FtZS1pbmZvLWNvbnRhaW5lciB7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBmbGV4LWRpcmVjdGlvbjogY29sdW1uOyB9XG4gICAgI2dhbWUtc2NyZWVuLWNvbnRhaW5lciAjZ2FtZS1pbmZvLWNvbnRhaW5lciAuZ2FtZS1pbmZvLWFyZWEge1xuICAgICAgcGFkZGluZzogMTVweDtcbiAgICAgIGJvcmRlcjogMnB4IHNvbGlkIGdyZWVuOyB9XG4iXSwic291cmNlUm9vdCI6IiJ9*/
