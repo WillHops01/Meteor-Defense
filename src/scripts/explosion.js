@@ -1,13 +1,18 @@
 export default class Explosion{
   constructor(ctx, position){
     this.drawPosition = {
-      x: position.x-60,
-      y: position.y-60
+      x: position.x,
+      y: position.y
     }; //50 is magic number center
     this.position={
       x:position.x,
       y:position.y
     };
+
+    this.size = 50;
+    this.maxSize = 130;
+    this.growthRate = (this.maxSize - this.size) / 4;
+    //calculation for how fast to grow
 
     this.ctx = ctx;
     this.timer = 0;
@@ -24,14 +29,18 @@ export default class Explosion{
   }
 
   updateExplosion(dt){
-    //debugger;
-    this.timer+=dt/1000;
+    dt = dt/1000;
+    this.timer+=dt;
     if (this.timer >= 0.8){
       this.stage++;
+
       this.timer =0;
     }    
     if (this.stage < 4){
+      this.drawPosition.x = this.position.x - this.size/2;
+      this.drawPosition.y = this.position.y - this.size/2;
       this.draw();
+      this.size += this.growthRate * dt;      
     }
     
   }
@@ -41,7 +50,7 @@ export default class Explosion{
       this.explosionImageArray[this.stage],
       this.drawPosition.x,
       this.drawPosition.y,
-      120, 120
+      this.size, this.size
     );
   }
 }

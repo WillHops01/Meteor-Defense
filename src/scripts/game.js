@@ -136,7 +136,7 @@ export default class Game{
         this.explosionArray.push(new Explosion(this.ctx, missile.position));
         this.missileArray.splice(this.missileArray.indexOf(missile),1);
       } else {
-        missile.updatePosition(elapsedFrameTime / 100);
+        missile.updatePosition((elapsedFrameTime / 1000));
       }      
     });
 

@@ -10,7 +10,7 @@ export default class Missile{
       x: (this.destination.x - this.position.x),
       y: (this.destination.y - this.position.y)
     };
-    this.speed = 10;
+    this.speed = 0.8;
     this.radius = 5;
     this.explosionRadius = 3;
     this.ctx = ctx;
@@ -35,8 +35,8 @@ export default class Missile{
   // }
 
   updatePosition(dt){
-    this.position.x += (this.course.x / this.speed) * dt;    
-    this.position.y += (this.course.y / this.speed) * dt;
+    this.position.x += (this.course.x * this.speed) * dt;    
+    this.position.y += (this.course.y * this.speed) * dt;
     this.draw();
   }
 
