@@ -22,7 +22,7 @@ export default class Explosion{
       document.getElementById("explosion-4")];
     this.imageToDraw = this.explosionImageArray[0];
     this.stage = 0;
-    this.explosionRadius = 63; 
+    this.explosionRadius = this.size/2;
 
     this.draw = this.draw.bind(this);
     this.updateExplosion = this.updateExplosion.bind(this);
@@ -40,7 +40,8 @@ export default class Explosion{
       this.drawPosition.x = this.position.x - this.size/2;
       this.drawPosition.y = this.position.y - this.size/2;
       this.draw();
-      this.size += this.growthRate * dt;      
+      this.size += this.growthRate * dt;  
+      this.explosionRadius = this.size / 2;    
     }
     
   }

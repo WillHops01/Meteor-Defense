@@ -2,7 +2,7 @@ import Meteor from "./meteor";
 import Missile from "./missile";
 import Base from "./base";
 import Explosion from "./explosion";
-import GameState from "./gameState";
+import GameDisplay from "./gameDisplay";
 import { calculateDistance } from "./util";
 
 export default class Game{
@@ -22,7 +22,7 @@ export default class Game{
     this.timer = 0; //used to generate new meteors at intervals
     this.level = 1; //controls difficulty and pace of game
     this.background = document.getElementById("background");
-    this.gameState = new GameState();
+    this.gameDisplay = new GameDisplay();
 
     this.gameLoop = this.gameLoop.bind(this);
     this.runGame = this.runGame.bind(this);
@@ -36,7 +36,7 @@ export default class Game{
     //find closest base to click
     //spawn missile at base heading towards click    
     
-    if (this.gameState.missiles > 0){
+    if (this.gameDisplay.missiles > 0){
       let potentialBases = this.baseArray.filter(base => {return !base.destroyed;});
       let closestBase = potentialBases[0];
       let difference = Math.abs(e.offsetX - closestBase.position.x);
@@ -50,7 +50,7 @@ export default class Game{
         x: e.offsetX,
         y: e.offsetY
       };
-      this.gameState.fireMissile();
+      this.gameDisplay.fireMissile();
       this.missileArray.push(new Missile(destination, (closestBase.position), this.ctx));
     }     
   }
@@ -87,7 +87,7 @@ export default class Game{
       //repeat
 
     //
-    if (this.gameState.checkContinue()){
+    if (this.gameDisplay.checkContinue()){
       let elapsedFrameTime = timestamp - this.lastTime;
       this.lastTime = timestamp;
       this.timer += elapsedFrameTime / 1000;
@@ -128,7 +128,7 @@ export default class Game{
           let distance = calculateDistance(meteor.position, base.position);
           if (distance <= base.radius + meteor.radius) {
             base.destroyBase();
-            this.gameState.destroyBase();
+            this.gameDisplay.destroyBase();
             this.explosionArray.push(new Explosion(this.ctx, base.position));
           }
         });

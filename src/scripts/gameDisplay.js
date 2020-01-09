@@ -1,12 +1,14 @@
-export default class gameState{
+export default class gameDisplay{
   constructor(){
     this.bases = 3;
     this.missiles = 10;
     this.level = 1;
+    this.destroyedMeteorCount = 0;
 
     this.basesDiv = document.getElementById("game-info-bases");
     this.missilesDiv = document.getElementById("game-info-missiles");
     this.levelDiv = document.getElementById("game-info-level");
+    this.destroyedDiv = document.getElementById("game-info-destroyed");
 
     this.checkContinue = this.checkContinue.bind(this);
     this.destroyBase = this.destroyBase.bind(this);
@@ -32,6 +34,7 @@ export default class gameState{
 
   destroyBase(){
     this.bases -= 1;
+    this.updateDisplay();
   }
 
   checkContinue(){

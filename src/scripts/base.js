@@ -14,7 +14,6 @@ export default class Base{
     }; //magic numbers for width and height adjusting
     this.drawWidth = this.baseImage.width;
     this.drawHeight = this.baseImage.height;
-    //debugger;
     this.radius = 40;
     this.destroyed = false;
 
