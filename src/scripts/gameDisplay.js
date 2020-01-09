@@ -26,7 +26,7 @@ export default class gameDisplay{
 
   setupLevelDisplay(){
     this.level += 1;
-    this.missiles = (8 + (this.level * 2));    
+    this.missiles = (8 + (this.level));    
     this.bases = 3;
     this.destroyedMeteorCount = 0;
     this.levelGoal = (10 + (this.level * 5));
@@ -73,9 +73,9 @@ export default class gameDisplay{
 
   gameLost(){
     this.ctx.fillStyle = "red";
-    this.ctx.fillRect(500, 300, 450, 200);
+    this.ctx.fillRect(350, 300, 650, 200);
     this.ctx.fillStyle = "yellow";
-    this.ctx.strokeText(`Earth has been destroyed, whoops!`, 550, 400);
+    this.ctx.strokeText(`Earth has been destroyed, whoops!`, 450, 400);
   }
 
   checkContinue(){
