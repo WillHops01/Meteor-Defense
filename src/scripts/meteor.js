@@ -5,9 +5,16 @@ export default class Meteor{
       x: posX,
       y: -10
     };
+    // this.drawPosition = {
+    //   x: this.position.x - 10,
+    //   y: this.position.y - 10
+    // };
     this.speed = 7 * this.setSpeed();
     this.direction = this.setDirection();
     this.radius = 10;
+
+    this.meteorImage = document.getElementById("meteor-1");
+
     this.updatePosition = this.updatePosition.bind(this);
     this.draw = this.draw.bind(this);
   }
@@ -35,8 +42,15 @@ export default class Meteor{
 
 
   draw(){
-    this.ctx.beginPath();    
-    this.ctx.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
-    this.ctx.fill();
+    // this.ctx.beginPath();    
+    // this.ctx.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
+    // this.ctx.fill();
+    this.ctx.drawImage(
+      this.meteorImage,
+      this.position.x-10,
+      this.position.y-10,
+      20,
+      20
+    );
   }
 }

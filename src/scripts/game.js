@@ -37,12 +37,12 @@ export default class Game{
     //spawn missile at base heading towards click    
     
     if (this.gameState.missiles > 0){
-
-      let closestBase = this.baseArray[0];
+      let potentialBases = this.baseArray.filter(base => {return !base.destroyed;});
+      let closestBase = potentialBases[0];
       let difference = Math.abs(e.offsetX - closestBase.position.x);
-      for (let i = 1; i < this.baseArray.length; i++) {
-        if (Math.abs(e.offsetX - this.baseArray[i].position.x) < difference) {
-          closestBase = this.baseArray[i];
+      for (let i = 1; i < potentialBases.length; i++) {
+        if (Math.abs(e.offsetX - potentialBases[i].position.x) < difference) {
+          closestBase = potentialBases[i];
           difference = Math.abs(e.offsetX - closestBase.position.x);
         }
       }
