@@ -9,8 +9,8 @@ export default class Explosion{
       y:position.y
     };
 
-    this.size = 50;
-    this.maxSize = 130;
+    this.size = 60;
+    this.maxSize = 150;
     this.growthRate = (this.maxSize - this.size) / 4;
     //calculation for how fast to grow
 

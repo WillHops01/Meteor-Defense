@@ -4,7 +4,7 @@ export default class gameDisplay{
     this.ctx.font = "20pt sans serif";
     this.bases = 3;
     this.missiles = 10;
-    this.level = 1;
+    this.level = 0;
     this.destroyedMeteorCount = 0;
     this.levelGoal = 15;
 
@@ -19,17 +19,30 @@ export default class gameDisplay{
     this.nextLevel = this.nextLevel.bind(this);
     this.destroyMeteor = this.destroyMeteor.bind(this);
     this.gameLost = this.gameLost.bind(this);
+    this.setupLevelDisplay = this.setupLevelDisplay.bind(this);
 
     this.updateDisplay();
   }
 
+  setupLevelDisplay(){
+    this.level += 1;
+    this.missiles = (8 + (this.level * 2));    
+    this.bases = 3;
+    this.destroyedMeteorCount = 0;
+    this.levelGoal = (10 + (this.level * 5));
+    this.updateDisplay();
+  }
+
   nextLevel(callback){
-    //debugger;
+    //level setup logic    
+    this.setupLevelDisplay(); 
+
     this.ctx.fillStyle = "red";
     this.ctx.fillRect(500, 300, 250, 200);
     this.ctx.fillStyle = "yellow";
     this.ctx.strokeText(`Level ${this.level}`, 575,400);
-    window.setTimeout(() => { callback(0); }, 2500);
+    //let time = new Date().getMilliseconds();
+    window.setTimeout(() => { callback(2500); }, 2500);    
   }
 
   updateDisplay(){
@@ -44,10 +57,6 @@ export default class gameDisplay{
     this.updateDisplay();
   }
 
-  resetState(){
-
-  }
-
   destroyBase(){
     this.bases -= 1;
     this.updateDisplay();
@@ -56,16 +65,21 @@ export default class gameDisplay{
   destroyMeteor(){
     this.destroyedMeteorCount += 1;
     this.updateDisplay();
+    // if (this.destroyedMeteorCount >= this.levelGoal){
+    //   this.
+    // }
+
   }
 
   gameLost(){
     this.ctx.fillStyle = "red";
-    this.ctx.fillRect(500, 300, 200, 200);
+    this.ctx.fillRect(500, 300, 450, 200);
     this.ctx.fillStyle = "yellow";
     this.ctx.strokeText(`Earth has been destroyed, whoops!`, 550, 400);
   }
 
   checkContinue(){
+    if (this.destroyedMeteorCount >= this.levelGoal) return false;
     if (this.bases >0 ) return true;
     return false;
   }

@@ -50,3 +50,16 @@
 // // let otherTest = test.buildObj();
 // let otherTest = new Test().buildObj();
 // console.log(otherTest.variable);
+
+class Test{
+  constructor(){
+    this.run = this.run.bind(this);
+  }
+
+  run(){
+    this.testnum = 1;
+  }
+}
+
+let test = new Test();
+console.log(test.testnum);

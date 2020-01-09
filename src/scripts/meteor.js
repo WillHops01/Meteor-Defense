@@ -9,7 +9,7 @@ export default class Meteor{
     //   x: this.position.x - 10,
     //   y: this.position.y - 10
     // };
-    this.speed = 7 * this.setSpeed();
+    this.speed = 55 * this.setSpeed();
     this.direction = this.setDirection();
     this.radius = 10;
 
@@ -35,8 +35,10 @@ export default class Meteor{
   }
 
   updatePosition(levelMultiplier, deltaTime){
+    //debugger;
     this.position.x += this.direction;
-    this.position.y += (levelMultiplier * this.speed * deltaTime);    
+    this.position.y += (levelMultiplier * this.speed * deltaTime);  
+    //debugger;  
     this.draw();
   }
 
