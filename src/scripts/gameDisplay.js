@@ -1,7 +1,7 @@
 export default class gameDisplay{
   constructor(ctx){
     this.ctx = ctx;    
-    this.ctx.font = "20pt sans serif";
+    this.ctx.font = "24pt sans serif";
     this.bases = 3;
     this.missiles = 10;
     this.level = 0;

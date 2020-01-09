@@ -23,9 +23,7 @@ export default class Game{
     this.level = 0; //controls difficulty and pace of game
     this.levelMultiplier = 0.85;
     
-    this.gameDisplay = new GameDisplay(this.ctx);
-
-    this.testTimer = 0;
+    this.gameDisplay = new GameDisplay(this.ctx);   
 
     this.gameLoop = this.gameLoop.bind(this);
     this.runGame = this.runGame.bind(this);
@@ -95,11 +93,7 @@ export default class Game{
     this.gameDisplay.nextLevel(this.gameLoop);
   }
 
-  gameLoop(timestamp){   
-    if (this.testTimer < 2){
-      console.log(timestamp);
-      this.testTimer+=1;
-    }
+  gameLoop(timestamp){  
     if (this.gameDisplay.checkContinue()){
       //game still progressing, player has neither won or lost
       let elapsedFrameTime = timestamp - this.lastTime;
