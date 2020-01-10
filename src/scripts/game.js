@@ -219,7 +219,7 @@ export default class Game{
       } else {
         // player lost
         this.gameDisplay.gameLost();        
-          window.setTimeout(() => { 
+        window.setTimeout(() => { 
           this.gameDisplay.changeUserPrompt(2);
           this.activeListener = true;
         },2500);

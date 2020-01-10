@@ -128,10 +128,11 @@ export default class gameDisplay{
   }
 
   gameLost(){
+    let text = this.bases === 0 ? "Earth has been destroyed, whoops!" : "You're out of missiles, aim better!";
     this.ctx.fillStyle = "red";
     this.ctx.fillRect(300, 300, 650, 200);
     this.ctx.fillStyle = "yellow";
-    this.ctx.strokeText(`Earth has been destroyed, whoops!`, 400, 400);
+    this.ctx.strokeText(`${text}`, 400, 400);
     this.promptHeader.innerText = "Game Over";
   }
 
