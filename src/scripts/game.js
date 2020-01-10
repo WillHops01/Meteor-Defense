@@ -19,6 +19,7 @@ export default class Game{
     //this.missileCount = 10;
 
     this.lastTime = 0;
+    this.startTime = null;
     this.timer = 0; //used to generate new meteors at intervals
     this.level = 0; //controls difficulty and pace of game
     this.levelMultiplier = 0.85;
@@ -31,9 +32,11 @@ export default class Game{
     this.buildNewMeteors = this.buildNewMeteors.bind(this);  
     this.setupLevel = this.setupLevel.bind(this);
     this.waitForStart = this.waitForStart.bind(this);
-    this.resetGame = this.resetGame.bind(this);
-    this.activeListener = true;
+    this.resetGame = this.resetGame.bind(this);   
+    
+    this.explosionAudio = document.getElementById("explosion-audio");    
 
+    this.activeListener = true;
     this.background = document.getElementById("background");
     background.addEventListener("load", () => { 
       this.ctx.drawImage(this.background, 0, 0); }, false);
@@ -49,6 +52,7 @@ export default class Game{
     this.timer = 0; //used to generate new meteors at intervals
     this.level = 0; //controls difficulty and pace of game
     this.levelMultiplier = 0.85;
+    this.startTime = null;
     this.gameDisplay.resetDisplay();
   }
 
@@ -61,12 +65,10 @@ export default class Game{
     }
   }
 
-  handleClick(e){ 
-    
+  handleClick(e){     
     //check for missile count
     //find closest base to click
-    //spawn missile at base heading towards click    
-    
+    //spawn missile at base heading towards click 
     if (this.gameDisplay.missiles > 0){
       let potentialBases = this.baseArray.filter(base => {return !base.destroyed;});
       let closestBase = potentialBases[0];
@@ -91,7 +93,7 @@ export default class Game{
     this.meteorArray = [];
     this.baseArray = [];
     this.explosionArray = [];
-    this.missileArray = [];
+    this.missileArray = [];    
     this.level += 1;
     //setup meteors ???merge with buildMeteors????
     for (let i = 0; i < (8 + (2 * this.level)); i++) {
@@ -114,12 +116,15 @@ export default class Game{
   }
 
   runGame(){
-    this.ctx.drawImage(this.background, 0, 0);
-    this.lastTime += 2500;
+    this.ctx.drawImage(this.background, 0, 0);    
     this.gameDisplay.nextLevel(this.gameLoop);
   }
 
   gameLoop(timestamp){  
+    if (!this.startTime){
+      this.startTime = timestamp;
+      this.lastTime = this.startTime;
+    }
     if (this.gameDisplay.checkContinue()){
       //game still progressing, player has neither won or lost
       let elapsedFrameTime = timestamp - this.lastTime;
@@ -148,6 +153,7 @@ export default class Game{
           let distance = calculateDistance(explosion.position, meteor.position);
           // if meteor in radius, destroy it and create explosion
           if (distance <= explosion.explosionRadius + meteor.radius) {
+            new Audio(this.explosionAudio.src).play();
             this.explosionArray.push(new Explosion(this.ctx, meteor.position));
             this.meteorArray.splice(this.meteorArray.indexOf(meteor), 1);
             this.gameDisplay.destroyMeteor();
@@ -173,7 +179,8 @@ export default class Game{
       this.missileArray.forEach(missile => {
         //check for explosion
         if (missile.checkExplosion(calculateDistance(missile.position, missile.destination))) {
-          this.explosionArray.push(new Explosion(this.ctx, missile.position));
+          new Audio(this.explosionAudio.src).play();
+          this.explosionArray.push(new Explosion(this.ctx, missile.position));          
           this.missileArray.splice(this.missileArray.indexOf(missile), 1);
         } else {
           missile.updatePosition((elapsedFrameTime / 1000));

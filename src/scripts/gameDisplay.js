@@ -61,7 +61,7 @@ export default class gameDisplay{
     this.ctx.fillRect(500, 300, 250, 200);
     this.ctx.fillStyle = "yellow";
     this.ctx.strokeText(`Level ${this.level}`, 575,400);
-    window.setTimeout(() => { callback(2500); }, 2500);    
+    window.setTimeout(() => { callback(0); }, 2500);    
   }
 
   updateDisplay(){
