@@ -13,6 +13,12 @@ document.addEventListener("DOMContentLoaded", ()=>{
   ctx.canvas.height = SCREEN_HEIGHT;
 
   let game = new Game(ctx, SCREEN_WIDTH, SCREEN_HEIGHT);
+  //let backingAudio = document.getElementById("backing-track");
+  // backingAudio.addEventListener("load", () => {
+  //   debugger;
+  //   new Audio(backingAudio.src).play();
+  // }, false);
+  
   canvas.addEventListener("click", game.handleClick, false);
   //game.runGame();
 });

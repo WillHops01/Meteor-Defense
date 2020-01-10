@@ -16,8 +16,6 @@ export default class Game{
     this.missileArray = [];
     this.explosionArray = [];
 
-    //this.missileCount = 10;
-
     this.lastTime = 0;
     this.startTime = null;
     this.timer = 0; //used to generate new meteors at intervals
@@ -37,18 +35,16 @@ export default class Game{
     
     this.explosionAudio = document.getElementById("explosion-audio");
     this.baseDeathAudio = document.getElementById("base-death-audio");    
-    this.missileFlightAudio = document.getElementById("missile-flight"); 
-      
+    this.missileFlightAudio = document.getElementById("missile-flight");
+    this.backingAudio = document.getElementById("backing-track");
 
     this.activeListener = true;
     this.background = document.getElementById("background");
+    
     background.addEventListener("load", () => { 
       this.ctx.drawImage(this.background, 0, 0); }, false);
-    // $("#background").one("keypress", this.waitForStart);
 
     document.addEventListener("keydown", () => {this.waitForStart();});
-    
-    // addEventListener("load", () => {this.setupLevel();}, false);
   }
 
   resetGame(){
@@ -62,6 +58,7 @@ export default class Game{
 
   waitForStart(){
     if (this.activeListener){
+      this.backingAudio.play();
       this.gameDisplay.changeUserPrompt(1);
       this.resetGame();
       this.setupLevel();

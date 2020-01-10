@@ -16,6 +16,7 @@ export default class gameDisplay{
     this.promptHeader = document.getElementById("user-prompt-header-active");
 
     this.levelAudio = document.getElementById("level-advance");
+    
 
     this.checkContinue = this.checkContinue.bind(this);
     this.destroyBase = this.destroyBase.bind(this);
