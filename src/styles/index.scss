@@ -19,20 +19,7 @@ img{
   height: 100vh;
   justify-content: flex-start;
 
-  #game-info-container{
-    display: flex;
-    flex-direction: column;
-    padding: 15px;
-    justify-content: center;
-    margin-left: 60px;
-    width: 225px;
-
-    .game-info-area{
-      padding: 15px;
-      border: 2px solid green;
-      color: white;
-    }
-  }
+  
 }
 
 @keyframes userPromptColors {
@@ -99,7 +86,24 @@ img{
   }  
 }
 
+#game-info-container{
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    justify-content: center;
+    margin-left: 60px;
+    width: 250px;
+
+    .game-info-area{
+      padding: 15px;
+      border: 2px solid green;
+      color: white;
+      margin: 10px;
+    }
+  }
+
 .game-info-animate{
+  box-shadow: -5px 5px 5px orange;
   animation-name: infoBlink;
   animation-duration: .33s;
   animation-iteration-count: 4;

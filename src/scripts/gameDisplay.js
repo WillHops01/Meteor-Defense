@@ -25,7 +25,7 @@ export default class gameDisplay{
     this.setupLevelDisplay = this.setupLevelDisplay.bind(this);
     this.resetDisplay = this.resetDisplay.bind(this);
     this.changeUserPrompt = this.changeUserPrompt.bind(this);
-
+    this.animateInfo = this.animateInfo.bind(this);
 
     this.updateDisplay();
   }
@@ -71,43 +71,33 @@ export default class gameDisplay{
     window.setTimeout(() => { callback(0); }, 2500);    
   }
 
+  animateInfo(container){
+    let animateClass = "game-info-animate";
+    let animatedDoc = container;
+    animatedDoc.classList.add(animateClass);
+    window.setTimeout(() => {
+      animatedDoc.classList.remove(animateClass);
+    }, 1250);
+  }
+
   updateDisplay(num = 0){
     
     this.levelDiv.innerText = `Level: ${this.level}`;
     this.basesDiv.innerText = `Bases: ${this.bases}`;
     this.missilesDiv.innerText = `Missiles: ${this.missiles}`;
     this.destroyedDiv.innerText = `Destroyed Meteors: ${this.destroyedMeteorCount} of ${this.levelGoal}`;
-    let animateClass = "game-info-animate";
-    let animatedDoc;
     switch (num) {
       case 1:
-        animatedDoc = this.basesDiv;
-        animatedDoc.classList.add(animateClass);
-        window.setTimeout(() => {
-          animatedDoc.classList.remove(animateClass);
-        }, 2000);
+        this.animateInfo(this.basesDiv);       
         break;
       case 2:
-        animatedDoc = this.missilesDiv;
-        animatedDoc.classList.add(animateClass);
-        window.setTimeout(()=>{
-          animatedDoc.classList.remove(animateClass);
-        }, 2000); 
+        this.animateInfo(this.missilesDiv);        
         break;
       case 3:
-        animatedDoc = this.destroyedDiv;
-        animatedDoc.classList.add(animateClass);
-        window.setTimeout(() => {
-          animatedDoc.classList.remove(animateClass);
-        }, 2000);
+        this.animateInfo(this.destroyedDiv);        
         break;
       case 4:
-        animatedDoc = this.levelDiv;
-        animatedDoc.classList.add(animateClass);
-        window.setTimeout(() => {
-          animatedDoc.classList.remove(animateClass);
-        }, 2000);
-        break;
+        this.animateInfo(this.levelDiv);        
       default:
         break;
     }
@@ -130,9 +120,9 @@ export default class gameDisplay{
 
   gameLost(){
     this.ctx.fillStyle = "red";
-    this.ctx.fillRect(350, 300, 650, 200);
+    this.ctx.fillRect(300, 300, 650, 200);
     this.ctx.fillStyle = "yellow";
-    this.ctx.strokeText(`Earth has been destroyed, whoops!`, 450, 400);
+    this.ctx.strokeText(`Earth has been destroyed, whoops!`, 400, 400);
     this.promptHeader.innerText = "Game Over";
   }
 
