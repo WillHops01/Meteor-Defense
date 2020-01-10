@@ -52,10 +52,10 @@ img{
 
 @keyframes infoBlink {
   from {
-    border-color: "green"
+    border: 2px solid green;
   }
   to {
-    border-color: "yellow"
+    border: 2px solid yellow;
   }
 }
   
@@ -97,6 +97,13 @@ img{
     width: 1200px;
     
   }  
+}
+
+.game-info-animate{
+  animation-name: infoBlink;
+  animation-duration: .33s;
+  animation-iteration-count: 4;
+  animation-direction: normal;
 }
 
 

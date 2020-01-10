@@ -24,7 +24,8 @@ export default class Game{
     this.level = 0; //controls difficulty and pace of game
     this.levelMultiplier = 0.85;
     
-    this.gameDisplay = new GameDisplay(this.ctx);   
+    this.gameDisplay = new GameDisplay(this.ctx);  
+    this.gameDisplay.setupLevelDisplay(); 
 
     this.gameLoop = this.gameLoop.bind(this);
     this.runGame = this.runGame.bind(this);
