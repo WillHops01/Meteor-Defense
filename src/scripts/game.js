@@ -30,9 +30,35 @@ export default class Game{
     this.handleClick = this.handleClick.bind(this);
     this.buildNewMeteors = this.buildNewMeteors.bind(this);  
     this.setupLevel = this.setupLevel.bind(this);
+    this.waitForStart = this.waitForStart.bind(this);
+    this.resetGame = this.resetGame.bind(this);
+    this.activeListener = true;
 
     this.background = document.getElementById("background");
-    this.background.addEventListener("load", () => {this.setupLevel();}, false);
+    background.addEventListener("load", () => { 
+      this.ctx.drawImage(this.background, 0, 0); }, false);
+    // $("#background").one("keypress", this.waitForStart);
+
+    document.addEventListener("keydown", () => {this.waitForStart();});
+    
+    // addEventListener("load", () => {this.setupLevel();}, false);
+  }
+
+  resetGame(){
+    this.lastTime = 0;
+    this.timer = 0; //used to generate new meteors at intervals
+    this.level = 0; //controls difficulty and pace of game
+    this.levelMultiplier = 0.85;
+    this.gameDisplay.resetDisplay();
+  }
+
+  waitForStart(){
+    if (this.activeListener){
+      this.gameDisplay.changeUserPrompt(1);
+      this.resetGame();
+      this.setupLevel();
+      this.activeListener = false;
+    }
   }
 
   handleClick(e){ 
@@ -88,7 +114,7 @@ export default class Game{
   }
 
   runGame(){
-    this.ctx.drawImage(this.background, 0, 0, this.screenWidth, this.screenHeight);
+    this.ctx.drawImage(this.background, 0, 0);
     this.lastTime += 2500;
     this.gameDisplay.nextLevel(this.gameLoop);
   }
@@ -169,7 +195,11 @@ export default class Game{
         this.setupLevel();
       } else {
         // player lost
-        this.gameDisplay.gameLost();
+        this.gameDisplay.gameLost();        
+        window.setTimeout(() => { 
+          this.gameDisplay.changeUserPrompt(2);
+          this.activeListener = true;
+        },2500);
       }
     }    
   }

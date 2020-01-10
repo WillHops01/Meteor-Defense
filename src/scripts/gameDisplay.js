@@ -12,6 +12,7 @@ export default class gameDisplay{
     this.missilesDiv = document.getElementById("game-info-missiles");
     this.levelDiv = document.getElementById("game-info-level");
     this.destroyedDiv = document.getElementById("game-info-destroyed");
+    this.promptHeader = document.getElementById("user-prompt-header-active");
 
     this.checkContinue = this.checkContinue.bind(this);
     this.destroyBase = this.destroyBase.bind(this);
@@ -20,7 +21,27 @@ export default class gameDisplay{
     this.destroyMeteor = this.destroyMeteor.bind(this);
     this.gameLost = this.gameLost.bind(this);
     this.setupLevelDisplay = this.setupLevelDisplay.bind(this);
+    this.resetDisplay = this.resetDisplay.bind(this);
+    this.changeUserPrompt = this.changeUserPrompt.bind(this);
 
+    this.updateDisplay();
+  }
+
+  changeUserPrompt(promptId){
+    if (promptId === 1){
+      this.promptHeader.innerText = "Begin!";
+      this.promptHeader.setAttribute("id", "user-prompt-header-idle");
+    } else if (promptId === 2){
+      this.promptHeader.innerText = "Press Any Key to Begin";
+    }
+  }
+
+  resetDisplay(){
+    this.bases = 3;
+    this.missiles = 10;
+    this.level = 0;
+    this.destroyedMeteorCount = 0;
+    this.levelGoal = 15;
     this.updateDisplay();
   }
 
@@ -36,12 +57,10 @@ export default class gameDisplay{
   nextLevel(callback){
     //level setup logic    
     this.setupLevelDisplay(); 
-
     this.ctx.fillStyle = "red";
     this.ctx.fillRect(500, 300, 250, 200);
     this.ctx.fillStyle = "yellow";
     this.ctx.strokeText(`Level ${this.level}`, 575,400);
-    //let time = new Date().getMilliseconds();
     window.setTimeout(() => { callback(2500); }, 2500);    
   }
 
@@ -65,10 +84,6 @@ export default class gameDisplay{
   destroyMeteor(){
     this.destroyedMeteorCount += 1;
     this.updateDisplay();
-    // if (this.destroyedMeteorCount >= this.levelGoal){
-    //   this.
-    // }
-
   }
 
   gameLost(){
@@ -76,6 +91,7 @@ export default class gameDisplay{
     this.ctx.fillRect(350, 300, 650, 200);
     this.ctx.fillStyle = "yellow";
     this.ctx.strokeText(`Earth has been destroyed, whoops!`, 450, 400);
+    this.promptHeader.innerText = "Game Over";
   }
 
   checkContinue(){

@@ -14,50 +14,17 @@ img{
 
 #game-screen-outer-container{
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  //margin-top: 60px;
+  flex-direction: row;
   background-color: black;
   height: 100vh;
-
-  #title-area{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    h1{
-      font-size: 34px;
-      color: white;
-    }
-    h3{
-      font-size: 22px;
-      color:white;
-    }
-    title-area-header{
-      padding: 10px;
-    }
-  }
-
-  
-
-  #game-screen-inner-container{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-  }
-
-  #game-canvas{
-    height: 800px;
-    width: 1200px;
-    margin-top: 20px;
-  }
+  justify-content: flex-start;
 
   #game-info-container{
     display: flex;
     flex-direction: column;
     padding: 15px;
     justify-content: center;
+    margin-left: 60px;
 
     .game-info-area{
       padding: 15px;
@@ -66,3 +33,59 @@ img{
     }
   }
 }
+
+@keyframes userPromptColors {
+  0% {
+    color: white;
+  }
+  33% {
+    color: yellow;
+  }
+  66% {
+    color: orange;
+  }
+  100% {
+    color: red;
+  }
+}
+  
+#game-screen-inner-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 60px;
+
+    #title-area{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      h1{
+        font-size: 34px;
+        color: white;
+      }
+      #user-prompt-header-active{
+        font-size: 22px;
+        animation-name: userPromptColors;
+        animation-direction: alternate;
+        animation-duration: 0.33s;
+        animation-iteration-count: infinite;
+      }
+      #user-prompt-header-idle{
+        font-size: 22px;
+        color: yellow;
+      }
+      .title-area-header{
+        padding: 10px;
+        margin: 0px;
+      }
+
+    }
+
+  #game-canvas{
+    height: 800px;
+    width: 1200px;
+    
+  }  
+}
+
