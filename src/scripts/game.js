@@ -34,7 +34,10 @@ export default class Game{
     this.waitForStart = this.waitForStart.bind(this);
     this.resetGame = this.resetGame.bind(this);   
     
-    this.explosionAudio = document.getElementById("explosion-audio");    
+    this.explosionAudio = document.getElementById("explosion-audio");
+    this.baseDeathAudio = document.getElementById("base-death-audio");    
+    this.missileFlightAudio = document.getElementById("missile-flight"); 
+      
 
     this.activeListener = true;
     this.background = document.getElementById("background");
@@ -70,6 +73,7 @@ export default class Game{
     //find closest base to click
     //spawn missile at base heading towards click 
     if (this.gameDisplay.missiles > 0){
+      new Audio(this.missileFlightAudio.src).play();
       let potentialBases = this.baseArray.filter(base => {return !base.destroyed;});
       let closestBase = potentialBases[0];
       let difference = Math.abs(e.offsetX - closestBase.position.x);
@@ -112,6 +116,7 @@ export default class Game{
       basePosition.x += this.screenWidth / 3;
     }  
     this.levelMultiplier += 0.15;
+    this.startTime = null;
     this.runGame();
   }
 
@@ -169,6 +174,7 @@ export default class Game{
 
           let distance = calculateDistance(meteor.position, base.position);
           if (distance <= base.radius + meteor.radius) {
+            new Audio(this.baseDeathAudio.src).play();
             base.destroyBase();
             this.gameDisplay.destroyBase();
             this.explosionArray.push(new Explosion(this.ctx, base.position));
@@ -203,7 +209,7 @@ export default class Game{
       } else {
         // player lost
         this.gameDisplay.gameLost();        
-        window.setTimeout(() => { 
+          window.setTimeout(() => { 
           this.gameDisplay.changeUserPrompt(2);
           this.activeListener = true;
         },2500);

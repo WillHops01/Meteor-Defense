@@ -25,6 +25,7 @@ img{
     padding: 15px;
     justify-content: center;
     margin-left: 60px;
+    width: 225px;
 
     .game-info-area{
       padding: 15px;
@@ -46,6 +47,15 @@ img{
   }
   100% {
     color: red;
+  }
+}
+
+@keyframes infoBlink {
+  from {
+    border-color: "green"
+  }
+  to {
+    border-color: "yellow"
   }
 }
   
@@ -88,4 +98,5 @@ img{
     
   }  
 }
+
 

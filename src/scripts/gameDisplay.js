@@ -14,6 +14,8 @@ export default class gameDisplay{
     this.destroyedDiv = document.getElementById("game-info-destroyed");
     this.promptHeader = document.getElementById("user-prompt-header-active");
 
+    this.levelAudio = document.getElementById("level-advance");
+
     this.checkContinue = this.checkContinue.bind(this);
     this.destroyBase = this.destroyBase.bind(this);
     this.updateDisplay = this.updateDisplay.bind(this);
@@ -23,6 +25,7 @@ export default class gameDisplay{
     this.setupLevelDisplay = this.setupLevelDisplay.bind(this);
     this.resetDisplay = this.resetDisplay.bind(this);
     this.changeUserPrompt = this.changeUserPrompt.bind(this);
+
 
     this.updateDisplay();
   }
@@ -51,12 +54,16 @@ export default class gameDisplay{
     this.bases = 3;
     this.destroyedMeteorCount = 0;
     this.levelGoal = (8 + (this.level * 5));
+    if(this.level >=3) this.levelGoal += this.level;
     this.updateDisplay();
   }
 
   nextLevel(callback){
-    //level setup logic    
+    //level setup logic       
     this.setupLevelDisplay(); 
+    if (this.level > 1){
+      this.levelAudio.play(); 
+    }
     this.ctx.fillStyle = "red";
     this.ctx.fillRect(500, 300, 250, 200);
     this.ctx.fillStyle = "yellow";
@@ -64,16 +71,26 @@ export default class gameDisplay{
     window.setTimeout(() => { callback(0); }, 2500);    
   }
 
-  updateDisplay(){
+  updateDisplay(num = 0){
+    
     this.levelDiv.innerText = `Level: ${this.level}`;
     this.basesDiv.innerText = `Bases: ${this.bases}`;
     this.missilesDiv.innerText = `Missiles: ${this.missiles}`;
     this.destroyedDiv.innerText = `Destroyed Meteors: ${this.destroyedMeteorCount} of ${this.levelGoal}`;
+    let animateClass = "game-info-animate";
+    // switch (num) {
+    //   case 2:
+    //     this.missilesDiv.classList.add(animateClass);
+    //     break;
+
+    //   default:
+    //     break;
+    // }
   }
 
   fireMissile(){
     this.missiles -= 1;
-    this.updateDisplay();
+    this.updateDisplay(2);
   }
 
   destroyBase(){
