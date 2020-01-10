@@ -202,7 +202,16 @@ export default class Game{
         }
       });
 
+      //final check for out of missile lose condition
+      if (this.gameDisplay.missiles === 0){
+        //no more missiles in rack, track for active explosions and missiles
+        if (this.missileArray.length === 0 && this.explosionArray.length === 0){
+          this.gameDisplay.outOfMissiles(); 
+        }
+      }
+
       requestAnimationFrame(this.gameLoop);   
+    //Game Display not Continueing
     } else {
       if (this.gameDisplay.destroyedMeteorCount >= this.gameDisplay.levelGoal){
         //player progress to next level

@@ -7,6 +7,7 @@ export default class gameDisplay{
     this.level = 0;
     this.destroyedMeteorCount = 0;
     this.levelGoal = 15;
+    this.continueGame = true;
 
     this.basesDiv = document.getElementById("game-info-bases");
     this.missilesDiv = document.getElementById("game-info-missiles");
@@ -26,6 +27,7 @@ export default class gameDisplay{
     this.resetDisplay = this.resetDisplay.bind(this);
     this.changeUserPrompt = this.changeUserPrompt.bind(this);
     this.animateInfo = this.animateInfo.bind(this);
+    this.outOfMissiles = this.outOfMissiles.bind(this);
 
     this.updateDisplay();
   }
@@ -55,6 +57,7 @@ export default class gameDisplay{
     this.destroyedMeteorCount = 0;
     this.levelGoal = (8 + (this.level * 5));
     if(this.level >=3) this.levelGoal += this.level;
+    this.continueGame = true;
     this.updateDisplay(4);
   }
 
@@ -118,6 +121,12 @@ export default class gameDisplay{
     this.updateDisplay(3);
   }
 
+  outOfMissiles(){
+    if (this.levelGoal - this.destroyedMeteorCount > this.bases){
+      this.continueGame = false;
+    }
+  }
+
   gameLost(){
     this.ctx.fillStyle = "red";
     this.ctx.fillRect(300, 300, 650, 200);
@@ -126,9 +135,13 @@ export default class gameDisplay{
     this.promptHeader.innerText = "Game Over";
   }
 
-  checkContinue(){
-    if (this.destroyedMeteorCount >= this.levelGoal) return false;
-    if (this.bases >0 ) return true;
-    return false;
+  checkContinue(){    
+    if (this.destroyedMeteorCount >= this.levelGoal){
+      this.continueGame = false;
+    } 
+    if (this.bases < 1 ){
+      this.continueGame = false;
+    }
+    return this.continueGame;
   }
 }
