@@ -20,27 +20,41 @@
   <img id="explosion-3" class="explosion" src="../assets/images/explosions/explosion_3.png">
   <img id="explosion-4" class="explosion" src="../assets/images/explosions/explosion_4.png">
   
-  <div id="game-screen-container">
-    <div id="game-info-container">
-      <div id="game-info-level" class="game-info-area">
-        Level 1
-      </div>
-      <div id ="game-info-bases" class="game-info-area">
-        Lives: 3
-      </div>
-      <div id="game-info-missiles" class="game-info-area">
-        Missiles: 10
-      </div>
-      <div id="game-info-destroyed" class="game-info-area">
-        Destroyed Meteors: 10
-      </div>
-      
+  <div id="game-screen-outer-container">
+    <div id="title-area">
+      <h1 class="title-area-header">
+        Meteor Defense
+      </h1>
+      <h3 class="title-area-header">
+        Begin
+      </h3>
     </div>
-    <canvas id="game-canvas">
-      <div>
-        Canvas not supported by your browser, switch to a newer version of your browser or try Google Chrome
+    
+
+    <div id="game-screen-inner-container">      
+    
+      <div id="game-info-container">
+        <div id="game-info-level" class="game-info-area">
+          Level 1
+        </div>
+        <div id ="game-info-bases" class="game-info-area">
+          Lives: 3
+        </div>
+        <div id="game-info-missiles" class="game-info-area">
+          Missiles: 10
+        </div>
+        <div id="game-info-destroyed" class="game-info-area">
+          Destroyed Meteors: 10
+        </div>
+        
       </div>
-    </canvas>
+      <canvas id="game-canvas">
+        <div>
+          Canvas not supported by your browser, switch to a newer version of your browser or try Google Chrome
+        </div>
+      </canvas>
+    </div>
+
   </div>  
 </body>
 </html>

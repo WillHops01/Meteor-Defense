@@ -29,7 +29,7 @@ export default class gameDisplay{
     this.missiles = (8 + (this.level));    
     this.bases = 3;
     this.destroyedMeteorCount = 0;
-    this.levelGoal = (10 + (this.level * 5));
+    this.levelGoal = (8 + (this.level * 5));
     this.updateDisplay();
   }
 
