@@ -1,7 +1,6 @@
 # Meteor-Defense
 [Play Meteor Defense!](https://willhops01.github.io/Meteor-Defense/)
 
-<img src="./assets/images/TitleScreenshot.jpg"/>
 ![](assets/images/TitleScreenshot.jpg)
 
 ## How to Play
