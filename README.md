@@ -1,7 +1,7 @@
 # Meteor-Defense
 [Play Meteor Defense!](https://willhops01.github.io/Meteor-Defense/)
 
-![](assets/images/TitleScreenshot.jpg)
+![](assets/images/TitleScreenshot.png)
 
 ## How to Play
 - Every level, players are given a certain number of Missiles
