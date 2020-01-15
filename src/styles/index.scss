@@ -20,6 +20,7 @@ img{
   justify-content: flex-start;
 
   
+  
 }
 
 @keyframes userPromptColors {
@@ -87,20 +88,49 @@ img{
 }
 
 #game-info-container{
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  justify-content: center;
+  margin-left: 60px;
+  width: 250px;
+
+  .game-info-area{
+    padding: 15px;
+    border: 2px solid green;
+    color: white;
+    margin: 10px;
+  }
+  #help-container{      
+    border: 2px solid white;
+    display: flex;
+    flex-direction: column;    
+    margin-top: 40px;
+
+    h3{
+      color: white;      
+      text-align: center;
+      margin: 12px 0px 12px;
+    }
+    ul{
+      padding: 0px 20px 0px 30px;
+    }
+    li{
+      color:white;
+      font-size: 13px;
+      padding-bottom: 15px;
+    }    
+  }
+
+  .music-checkbox{
+    color: white;
     display: flex;
     flex-direction: column;
-    padding: 15px;
-    justify-content: center;
-    margin-left: 60px;
-    width: 250px;
-
-    .game-info-area{
-      padding: 15px;
-      border: 2px solid green;
-      color: white;
-      margin: 10px;
+    .mute-item{
+      margin-top: 15px;
     }
   }
+}
 
 .game-info-animate{
   box-shadow: -5px 5px 5px orange;

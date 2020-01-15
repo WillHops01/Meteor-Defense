@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>Meteor Defense</title>
   <script type="application/javascript" src="./dist/main.js"></script>
   <link rel="stylesheet" href="./dist/main.css">
  
@@ -26,6 +26,7 @@
   <audio id="backing-track" src="./assets/Red Alert Hell March HQ.mp3"></audio>
 
   <div id="game-screen-outer-container">
+    
 
     <div id="game-info-container">
       <div id="game-info-level" class="game-info-area">
@@ -40,6 +41,53 @@
       <div id="game-info-destroyed" class="game-info-area">
         Destroyed Meteors: 10
       </div>
+
+      <div id="help-container">
+        <h3>
+          How to Play
+        </h3>
+        <section>
+          <ul> 
+            <li>
+              Every level, players are given a certain number of Missiles
+            </li>
+            <li>
+              Fire Missiles by clicking on the screen at the location where you want the missile to explode
+            </li>
+            <li>
+              When a missile reaches its destination, it creates an expanding Explosions area
+            </li>
+            <li>
+              Meteors caught in an Explosion also explode, allowing for "chaining" of Explosions
+            </li>
+            <li>
+            Defend your 3 Bases at the bottom of the screen
+            </li>
+            <li>
+            Advance to the next level by destroying the number of Meteors indicated on the left-hand side of your screen
+            </li>
+          </ul>
+        </section>
+      </div>
+
+      <div class="music-checkbox">
+        <div class="mute-item">
+          <input type="checkbox" id="mute-music-checkbox">
+          <span class="mute-sound-text">
+            Mute Music
+          </span>
+        </div>  
+      <div class="mute-item">
+        <input type="checkbox" id="mute-sfx-checkbox">
+        <span class="mute-sound-text">
+          Mute Sound Effects
+        </span>
+      </div>
+       
+      </div>
+        
+        
+
     </div>
 
     <div id="game-screen-inner-container">

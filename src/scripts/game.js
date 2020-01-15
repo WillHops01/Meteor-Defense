@@ -38,6 +38,23 @@ export default class Game{
     this.missileFlightAudio = document.getElementById("missile-flight");
     this.backingAudio = document.getElementById("backing-track");
 
+    this.musicEnabled = true;
+    this.muteMusic = document.getElementById("mute-music-checkbox");
+    this.muteMusic.addEventListener("click", ()=>{
+      this.musicEnabled = !this.musicEnabled;
+      if (!this.musicEnabled){
+        this.backingAudio.pause();
+      } else {
+        this.backingAudio.play();
+      }
+    });
+
+    this.sfxEnabled = true;
+    this.muteSFX = document.getElementById("mute-sfx-checkbox");
+    this.muteSFX.addEventListener("click", ()=>{
+      this.sfxEnabled = !this.sfxEnabled;
+    });
+
     this.activeListener = true;
     this.background = document.getElementById("background");
     
@@ -58,7 +75,7 @@ export default class Game{
 
   waitForStart(){
     if (this.activeListener){
-      this.backingAudio.play();
+      if(this.musicEnabled) this.backingAudio.play();
       this.gameDisplay.changeUserPrompt(1);
       this.resetGame();
       this.setupLevel();
@@ -71,7 +88,7 @@ export default class Game{
     //find closest base to click
     //spawn missile at base heading towards click 
     if (this.gameDisplay.missiles > 0){
-      new Audio(this.missileFlightAudio.src).play();
+      if(this.sfxEnabled) new Audio(this.missileFlightAudio.src).play();
       let potentialBases = this.baseArray.filter(base => {return !base.destroyed;});
       let closestBase = potentialBases[0];
       let difference = Math.abs(e.offsetX - closestBase.position.x);
@@ -132,7 +149,6 @@ export default class Game{
       //game still progressing, player has neither won or lost
       let elapsedFrameTime = timestamp - this.lastTime;
       this.lastTime = timestamp;
-      //debugger;
       this.timer += elapsedFrameTime / 1000;
 
       //const levelMultiplier = 1.0;
@@ -156,7 +172,7 @@ export default class Game{
           let distance = calculateDistance(explosion.position, meteor.position);
           // if meteor in radius, destroy it and create explosion
           if (distance <= explosion.explosionRadius + meteor.radius) {
-            new Audio(this.explosionAudio.src).play();
+            if (this.sfxEnabled) new Audio(this.explosionAudio.src).play();
             this.explosionArray.push(new Explosion(this.ctx, meteor.position));
             this.meteorArray.splice(this.meteorArray.indexOf(meteor), 1);
             this.gameDisplay.destroyMeteor();
@@ -172,7 +188,7 @@ export default class Game{
 
           let distance = calculateDistance(meteor.position, base.position);
           if (distance <= base.radius + meteor.radius) {
-            new Audio(this.baseDeathAudio.src).play();
+            if (this.sfxEnabled) new Audio(this.baseDeathAudio.src).play();
             base.destroyBase();
             this.gameDisplay.destroyBase();
             this.explosionArray.push(new Explosion(this.ctx, base.position));
@@ -183,7 +199,7 @@ export default class Game{
       this.missileArray.forEach(missile => {
         //check for explosion
         if (missile.checkExplosion(calculateDistance(missile.position, missile.destination))) {
-          new Audio(this.explosionAudio.src).play();
+          if (this.sfxEnabled) new Audio(this.explosionAudio.src).play();
           this.explosionArray.push(new Explosion(this.ctx, missile.position));          
           this.missileArray.splice(this.missileArray.indexOf(missile), 1);
         } else {
