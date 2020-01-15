@@ -87,3 +87,15 @@ nextLevel(callback){
       }
 ```
 Once the game or level ends, I simply reset this.startTime = null, thus ensuring that no matter how much time passes between levels or a new game, the first frame of my animation essentially starts at "0".
+
+## To-do's / Future Features
+The biggest issue with Meteor Defense as I see it is the difficulty scaling. While progressive levels do increase the number of meteors, their speed, and the number of destroyed meteors needed to progress to the next level, the game in some ways becomes easier as the player advances.
+
+This is due to 2 factors, the fact that meteors spawn in waves rather than one by one at random times, and that the more meteors there are on the screen, the easier it becomes to chain explosions and hit level-goals.
+
+I would like to:
+- more effectively randomize meteor generation (both starting location as well as timing)
+- fix the issue that I have with missiles where the farther away their destination is, the faster they travel
+
+## Thanks for Checking out Meteor Defense
+Well that about wraps it up for the readme. Thanks for reading, checking out my Javascript app!
