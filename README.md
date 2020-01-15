@@ -67,8 +67,7 @@ nextLevel(callback){
    if (this.gameDisplay.checkContinue()){
       //game still progressing, player has neither won or lost
       let elapsedFrameTime = timestamp - this.lastTime;
-      this.lastTime = timestamp;
-      this.timer += elapsedFrameTime / 1000;
+      this.lastTime = timestamp;      
       
 ```
    The issue here is that the timestamp passed by requestAnimationFrame begins once the page loads, not when the function is called for the firstime.
@@ -84,8 +83,7 @@ nextLevel(callback){
     if (this.gameDisplay.checkContinue()){
       //game still progressing, player has neither won or lost
       let elapsedFrameTime = timestamp - this.lastTime;
-      this.lastTime = timestamp;
-      this.timer += elapsedFrameTime / 1000;
+      this.lastTime = timestamp;      
       }
 ```
 Once the game or level ends, I simply reset this.startTime = null, thus ensuring that no matter how much time passes between levels or a new game, the first frame of my animation essentially starts at "0".
